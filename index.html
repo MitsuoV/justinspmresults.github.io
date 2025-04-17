@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Justin's SPM Price List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .price-table th {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .price-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .price-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .cart-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .checkout-page {
+            display: none;
+            text-align: center;
+        }
+        .qr-code {
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 60px;
+            padding: 4px;
+        }
+        .remove-btn {
+            background-color: #e74c3c;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Justin's SPM Price List</h1>
+    
+    <table class="price-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Price (RM)</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="price-list">
+            <!-- Prices will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <div class="cart-section">
+        <h2>🛒 Your Cart</h2>
+        <div id="cart-items"></div>
+        <p>Total Amount: RM <span id="total-amount">0.00</span></p>
+        <button onclick="showCheckout()">Check Out</button>
+    </div>
+
+    <div class="checkout-page" id="checkout-page">
+        <h2>💰 Total Payment Required</h2>
+        <p>Please scan the QR code below to complete your payment:</p>
+        <p style="font-size: 24px; color: #2c3e50;">RM <span id="checkout-total">0.00</span></p>
+        <img src="1744875985085_100.JPG" alt="DuitNow QR Code" class="qr-code">
+        <p>Scan with any banking app or eWallet to pay</p>
+        <button onclick="window.location.reload()">Return to Price List</button>
+    </div>
+
+    <script>
+        // Subjects with your specified pricing
+        const subjects = [
+            { name: "Bahasa Malaysia (BM)", price: 1.99 },
+            { name: "Bahasa Inggeris (BI)", price: 1.99 },
+            { name: "Bahasa Cina (BC)", price: 300 },
+            { name: "Mathematics (Maths)", price: 10 },
+            { name: "Additional Mathematics (Addmaths)", price: 500 },
+            { name: "Sejarah", price: 10 },
+            { name: "Physics", price: 100 },
+            { name: "Biology", price: 200 },
+            { name: "Chemistry", price: 100 },
+            { name: "Moral", price: 20 }
+        ];
+
+        let cart = [];
+
+        // Generate price list
+        function generatePriceList() {
+            const priceList = document.getElementById('price-list');
+            let html = '';
+            
+            subjects.forEach(subject => {
+                html += `
+                    <tr>
+                        <td>${subject.name}</td>
+                        <td>RM ${subject.price.toFixed(2)}</td>
+                        <td><input type="number" class="quantity-input" min="1" value="1" id="qty-${subject.name}"></td>
+                        <td><button onclick="addToCart('${subject.name}', ${subject.price})">Add to Cart</button></td>
+                    </tr>
+                `;
+            });
+
+            priceList.innerHTML = html;
+        }
+
+        // Cart functionality
+        function addToCart(subject, price) {
+            const quantity = parseInt(document.getElementById(`qty-${subject}`).value);
+            const existingItem = cart.find(item => item.subject === subject);
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ subject, price, quantity });
+            }
+
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                    <div>
+                        ${item.subject} (${item.quantity} x RM${item.price.toFixed(2)}) = RM${itemTotal.toFixed(2)}
+                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = html;
+            document.getElementById('total-amount').textContent = total.toFixed(2);
+        }
+
+        function showCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            document.querySelector('.price-table').style.display = 'none';
+            document.querySelector('.cart-section').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'block';
+            document.getElementById('checkout-total').textContent = 
+                document.getElementById('total-amount').textContent;
+        }
+
+        // Initialize price list
+        generatePriceList();
+    </script>
+</body>
+</html>

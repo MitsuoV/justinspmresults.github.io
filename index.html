@@ -2,197 +2,248 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Justin's SPM Price List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justin's SPM Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #3D52A0;
+            --secondary: #7091E6;
+            --accent: #8697C4;
+            --light: #ADBBDA;
+            --background: #EDE8F5;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #f0f8ff;
-        }
-        h1 {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--light));
             color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
             text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
         }
-        .price-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin: 0;
         }
-        .price-table th {
-            background-color: #3498db;
-            color: white;
-            padding: 15px;
-            text-align: left;
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
         }
-        .price-table td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+
+        .price-list {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
         }
-        .price-table tr:nth-child(even) {
-            background-color: #f8f9fa;
+
+        .subject-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
         }
-        .cart-section {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        .cart-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            height: fit-content;
         }
+
         .checkout-page {
             display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 3rem;
             text-align: center;
         }
+
         .qr-code {
-            max-width: 300px;
-            margin: 20px auto;
-            display: block;
+            width: 300px;
+            margin: 2rem auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+
         button {
-            background-color: #3498db;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(61,82,160,0.3);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
         .quantity-input {
             width: 60px;
-            padding: 4px;
-        }
-        .remove-btn {
-            background-color: #e74c3c;
-            margin-left: 10px;
+            padding: 0.5rem;
+            border: 2px solid var(--light);
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
-    <h1>📚 Justin's SPM Price List</h1>
-    
-    <table class="price-table">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Price (RM)</th>
-                <th>Quantity</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="price-list">
-            <!-- Prices will be inserted here by JavaScript -->
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="header">
+            <h1>Justin's SPM Results</h1>
+            <p>I heard you are curious for my SPM results, please refer to the following price list in order to know more</p>
+        </div>
 
-    <div class="cart-section">
-        <h2>🛒 Your Cart</h2>
-        <div id="cart-items"></div>
-        <p>Total Amount: RM <span id="total-amount">0.00</span></p>
-        <button onclick="showCheckout()">Check Out</button>
-    </div>
+        <div class="main-content">
+            <!-- Price List Section -->
+            <div class="price-list" id="price-list">
+                <h2>Available Subjects</h2>
+                <!-- Subjects will be populated by JS -->
+            </div>
 
-    <div class="checkout-page" id="checkout-page">
-        <h2>💰 Total Payment Required</h2>
-        <p>Please scan the QR code below to complete your payment:</p>
-        <p style="font-size: 24px; color: #2c3e50;">RM <span id="checkout-total">0.00</span></p>
-        <img src="1744875985085_100.JPG" alt="DuitNow QR Code" class="qr-code">
-        <p>Scan with any banking app or eWallet to pay</p>
-        <button onclick="window.location.reload()">Return to Price List</button>
+            <!-- Shopping Cart Section -->
+            <div class="cart-box">
+                <h2>Your Cart 🛒</h2>
+                <div id="cart-items" style="margin: 1rem 0;"></div>
+                <hr>
+                <p style="font-size: 1.2rem;">Total: RM <span id="total-amount">0.00</span></p>
+                <button onclick="showCheckout()">Checkout Now</button>
+            </div>
+        </div>
+
+        <!-- Checkout Page -->
+        <div class="checkout-page" id="checkout-page">
+            <h2>Payment Confirmation</h2>
+            <div style="font-size: 2rem; margin: 2rem 0;">
+                Total Amount: RM <span id="checkout-total">0.00</span>
+            </div>
+            <img src="1744875985085_100.JPG" alt="DuitNow QR Code" class="qr-code">
+            <p style="color: var(--accent);">Scan using your preferred banking app or eWallet</p>
+            <button onclick="location.reload()">Return to Subjects</button>
+        </div>
     </div>
 
     <script>
-        // Subjects with your specified pricing
         const subjects = [
-            { name: "Bahasa Malaysia (BM)", price: 1.99 },
-            { name: "Bahasa Inggeris (BI)", price: 1.99 },
-            { name: "Bahasa Cina (BC)", price: 300 },
-            { name: "Mathematics (Maths)", price: 10 },
-            { name: "Additional Mathematics (Addmaths)", price: 500 },
-            { name: "Sejarah", price: 10 },
-            { name: "Physics", price: 100 },
-            { name: "Biology", price: 200 },
-            { name: "Chemistry", price: 100 },
-            { name: "Moral", price: 20 }
+            { name: "Bahasa Malaysia (BM)", code: "BM" },
+            { name: "Bahasa Inggeris (BI)", code: "BI" },
+            { name: "Bahasa Cina (BC)", code: "BC" },
+            { name: "Mathematics", code: "MATH" },
+            { name: "Additional Mathematics", code: "ADDMATH" },
+            { name: "Sejarah", code: "SEJ" },
+            { name: "Physics", code: "PHY" },
+            { name: "Biology", code: "BIO" },
+            { name: "Chemistry", code: "CHEM" },
+            { name: "Moral", code: "MORAL" }
         ];
 
         let cart = [];
+        const FIXED_PRICE = 49.99;
 
-        // Generate price list
-        function generatePriceList() {
-            const priceList = document.getElementById('price-list');
+        // Create price list
+        function createPriceList() {
+            const container = document.getElementById('price-list');
             let html = '';
             
             subjects.forEach(subject => {
                 html += `
-                    <tr>
-                        <td>${subject.name}</td>
-                        <td>RM ${subject.price.toFixed(2)}</td>
-                        <td><input type="number" class="quantity-input" min="1" value="1" id="qty-${subject.name}"></td>
-                        <td><button onclick="addToCart('${subject.name}', ${subject.price})">Add to Cart</button></td>
-                    </tr>
+                    <div class="subject-item">
+                        <div>
+                            <strong>${subject.name}</strong><br>
+                            <small>${subject.code}</small>
+                        </div>
+                        <div>
+                            RM ${FIXED_PRICE}<br>
+                            <input type="number" class="quantity-input" 
+                                   id="qty-${subject.code}" 
+                                   min="1" value="1">
+                            <button onclick="addToCart('${subject.code}')">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
                 `;
             });
 
-            priceList.innerHTML = html;
+            container.innerHTML += html;
         }
 
-        // Cart functionality
-        function addToCart(subject, price) {
-            const quantity = parseInt(document.getElementById(`qty-${subject}`).value);
-            const existingItem = cart.find(item => item.subject === subject);
+        // Cart functions
+        function addToCart(code) {
+            const quantity = parseInt(document.getElementById(`qty-${code}`).value);
+            const existing = cart.find(item => item.code === code);
 
-            if (existingItem) {
-                existingItem.quantity += quantity;
+            if (existing) {
+                existing.quantity += quantity;
             } else {
-                cart.push({ subject, price, quantity });
+                cart.push({
+                    code: code,
+                    name: subjects.find(s => s.code === code).name,
+                    price: FIXED_PRICE,
+                    quantity: quantity
+                });
             }
 
             updateCartDisplay();
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartDisplay();
-        }
-
         function updateCartDisplay() {
-            const cartItems = document.getElementById('cart-items');
+            const cartContainer = document.getElementById('cart-items');
             let html = '';
             let total = 0;
 
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
                 html += `
-                    <div>
-                        ${item.subject} (${item.quantity} x RM${item.price.toFixed(2)}) = RM${itemTotal.toFixed(2)}
-                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    <div style="margin: 0.5rem 0;">
+                        ${item.name} (${item.quantity}x) 
+                        <strong>RM ${subtotal.toFixed(2)}</strong>
                     </div>
                 `;
             });
 
-            cartItems.innerHTML = html;
+            cartContainer.innerHTML = html;
             document.getElementById('total-amount').textContent = total.toFixed(2);
         }
 
         function showCheckout() {
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                alert('Please add subjects to your cart first!');
                 return;
             }
 
-            document.querySelector('.price-table').style.display = 'none';
-            document.querySelector('.cart-section').style.display = 'none';
+            document.querySelector('.main-content').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
             document.getElementById('checkout-total').textContent = 
                 document.getElementById('total-amount').textContent;
         }
 
-        // Initialize price list
-        generatePriceList();
+        // Initialize the page
+        createPriceList();
     </script>
 </body>
 </html>

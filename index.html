@@ -343,6 +343,13 @@
 </style>
 
     <script>
+        function toggleMobileCart() {
+    const cartBox = document.querySelector('.cart-box');
+    if (cartBox) {
+        cartBox.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
         const subjects = [
             { name: "Bahasa Malaysia (BM)", code: "BM" },
             { name: "Bahasa Inggeris (BI)", code: "BI" },

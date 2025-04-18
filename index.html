@@ -373,48 +373,64 @@
 }
 
         const subjects = [
-            { name: "Bahasa Malaysia (BM)", code: "BM" },
-            { name: "Bahasa Inggeris (BI)", code: "BI" },
-            { name: "Bahasa Cina (BC)", code: "BC" },
-            { name: "Mathematics", code: "MATH" },
-            { name: "Additional Mathematics", code: "ADDMATH" },
-            { name: "Sejarah", code: "SEJ" },
-            { name: "Physics", code: "PHY" },
-            { name: "Biology", code: "BIO" },
-            { name: "Chemistry", code: "CHEM" },
-            { name: "Moral", code: "MORAL" }
-        ];
+    { name: "Bahasa Malaysia (BM)", code: "BM", difficultyText: "easy la", difficultyValue: 2 },
+    { name: "Bahasa Inggeris (BI)", code: "BI", difficultyText: "normal", difficultyValue: 3 },
+    { name: "Bahasa Cina (BC)", code: "BC", difficultyText: "abit hard", difficultyValue: 4 },
+    { name: "Mathematics", code: "MATH", difficultyText: "normal", difficultyValue: 3 },
+    { name: "Additional Mathematics", code: "ADDMATH", difficultyText: "memang jibai", difficultyValue: 5 },
+    { name: "Sejarah", code: "SEJ", difficultyText: "easy la", difficultyValue: 2 },
+    { name: "Physics", code: "PHY", difficultyText: "abit hard", difficultyValue: 4 },
+    { name: "Biology", code: "BIO", difficultyText: "normal", difficultyValue: 3 },
+    { name: "Chemistry", code: "CHEM", difficultyText: "abit hard", difficultyValue: 4 },
+    { name: "Moral", code: "MORAL", difficultyText: "close both eyes also can do", difficultyValue: 1 }
+];
 
         let cart = [];
         const FIXED_PRICE = 49.99;
 
         // Create price list
         function createPriceList() {
-            const container = document.getElementById('price-list');
-            let html = '';
-            
-            subjects.forEach(subject => {
-                html += `
-                    <div class="subject-item">
-                        <div>
-                            <strong>${subject.name}</strong><br>
-                            <small>${subject.code}</small>
-                        </div>
-                        <div>
-                            RM ${FIXED_PRICE}<br>
-                            <input type="number" class="quantity-input" 
-                                   id="qty-${subject.code}" 
-                                   min="1" value="1">
-                            <button onclick="addToCart('${subject.code}')">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
+    const container = document.getElementById('price-list');
+    let html = '';
+    const maxDifficulty = 5;
+    const barWidth = 80;
 
-            container.innerHTML += html;
-        }
+    function renderBar(difficulty) {
+        const percentage = (difficulty / maxDifficulty) * barWidth;
+        const barStyle = `
+            display: inline-block;
+            background-color: var(--accent);
+            height: 10px;
+            width: ${percentage}px;
+            border-radius: 5px;
+            margin-right: 5px;
+        `;
+        return `<span style="${barStyle}"></span>`;
+    }
+
+    subjects.forEach(subject => {
+        html += `
+            <div class="subject-item">
+                <div>
+                    <strong>${subject.name}</strong><br>
+                    <small>${subject.code}</small><br>
+                    <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
+                </div>
+                <div>
+                    RM ${FIXED_PRICE}<br>
+                    <input type="number" class="quantity-input"
+                           id="qty-${subject.code}"
+                           min="1" value="1">
+                    <button onclick="addToCart('${subject.code}')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML += html;
+}
 
         // Cart functions
         function addToCart(code) {

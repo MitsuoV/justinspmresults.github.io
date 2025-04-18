@@ -6,6 +6,56 @@
     <title>Justin's SPM Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* Floating Cart Button for Mobile */
+.cart-float-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* Slide Up Cart Panel */
+.cart-box.mobile-slide {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    transition: bottom 0.4s ease-in-out;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+}
+
+/* When Active */
+.cart-box.mobile-slide.active {
+    bottom: 0;
+}
+
+/* Show floating button only on small screens */
+@media (max-width: 768px) {
+    .cart-float-btn {
+        display: block;
+    }
+
+    .cart-box.desktop {
+        display: none;
+    }
+
+    .cart-box.mobile-slide {
+        display: block;
+    }
+}
+
         :root {
             --primary: #3D52A0;
             --secondary: #7091E6;
@@ -391,5 +441,8 @@
         // Initialize the page
         createPriceList();
     </script>
+    <!-- Floating Cart Button -->
+<button class="cart-float-btn" onclick="toggleMobileCart()">🛒</button>
+
 </body>
 </html>

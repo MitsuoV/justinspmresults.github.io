@@ -6,7 +6,7 @@
     <title>Justin's SPM Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
-        .checkout-page {
+    .checkout-page {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -17,11 +17,16 @@
     visibility: visible;
 }
 
+.main-content {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
 .main-content.fade-out {
     opacity: 0;
-    transition: opacity 0.5s ease;
     pointer-events: none;
 }
+
 
         /* Floating Cart Button for Mobile */
 .cart-float-btn {
@@ -459,19 +464,25 @@ function showCheckout() {
     const mainContent = document.querySelector('.main-content');
     const checkoutPage = document.getElementById('checkout-page');
 
-    // Fade out the main content
+    // Fade out the subject list
     mainContent.classList.add('fade-out');
 
-    // Wait for the fade-out transition before showing checkout
+    // Wait for the fade-out to finish before switching views
     setTimeout(() => {
         mainContent.style.display = 'none';
-        checkoutPage.classList.add('show');
-    }, 500);
+        checkoutPage.style.display = 'block';
 
-    // Update the checkout total
-    document.getElementById('checkout-total').textContent =
-        document.getElementById('total-amount').textContent;
+        // Add fade-in transition for checkout page
+        requestAnimationFrame(() => {
+            checkoutPage.classList.add('show');
+        });
+
+        // Set total in checkout
+        document.getElementById('checkout-total').textContent = 
+            document.getElementById('total-amount').textContent;
+    }, 500); // 500ms matches the CSS transition
 }
+
         function returnToSubjects() {
     const mainContent = document.querySelector('.main-content');
     const checkoutPage = document.getElementById('checkout-page');

@@ -6,6 +6,23 @@
     <title>Justin's SPM Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
+        .checkout-page {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.checkout-page.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.main-content.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
         /* Floating Cart Button for Mobile */
 .cart-float-btn {
     display: none;
@@ -192,7 +209,7 @@
             </div>
             <img src="1744875985085_100.JPG" alt="DuitNow QR Code" class="qr-code">
             <p style="color: var(--accent);">Scan using your preferred banking app or eWallet</p>
-            <button onclick="location.reload()">Return to Subjects</button>
+            <button onclick="returnToSubjects()">Return to Subjects</button>
         </div>
     </div>
 <!-- Inside <style> tag -->
@@ -433,17 +450,46 @@
             document.getElementById('total-amount').textContent = total.toFixed(2);
         }
 
-        function showCheckout() {
-            if (cart.length === 0) {
-                alert('Please add subjects to your cart first!');
-                return;
-            }
+function showCheckout() {
+    if (cart.length === 0) {
+        alert('Please add subjects to your cart first!');
+        return;
+    }
 
-            document.querySelector('.main-content').style.display = 'none';
-            document.getElementById('checkout-page').style.display = 'block';
-            document.getElementById('checkout-total').textContent = 
-                document.getElementById('total-amount').textContent;
-        }
+    const mainContent = document.querySelector('.main-content');
+    const checkoutPage = document.getElementById('checkout-page');
+
+    // Fade out the main content
+    mainContent.classList.add('fade-out');
+
+    // Wait for the fade-out transition before showing checkout
+    setTimeout(() => {
+        mainContent.style.display = 'none';
+        checkoutPage.classList.add('show');
+    }, 500);
+
+    // Update the checkout total
+    document.getElementById('checkout-total').textContent =
+        document.getElementById('total-amount').textContent;
+}
+        function returnToSubjects() {
+    const mainContent = document.querySelector('.main-content');
+    const checkoutPage = document.getElementById('checkout-page');
+
+    // Fade out checkout page
+    checkoutPage.classList.remove('show');
+
+    // After fade out, bring back main content
+    setTimeout(() => {
+        checkoutPage.style.display = 'none';
+        mainContent.style.display = 'grid';
+        requestAnimationFrame(() => {
+            mainContent.classList.remove('fade-out');
+            mainContent.classList.add('show');
+        });
+    }, 500);
+}
+
 
         // Initialize the page
         createPriceList();

@@ -39,9 +39,9 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
+            width: 50px; /* Smaller button */
+            height: 50px; /* Smaller button */
+            font-size: 1.2rem; /* Smaller font */
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
@@ -56,6 +56,7 @@
             transition: bottom 0.4s ease-in-out;
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            padding: 1rem; /* Less padding for mobile */
         }
 
         /* When Active */
@@ -75,6 +76,86 @@
 
             .cart-box.mobile-slide {
                 display: block;
+            }
+
+            .container {
+                padding: 1rem; /* Less container padding */
+            }
+
+            .header {
+                margin-bottom: 1.5rem; /* Less header margin */
+                padding: 1rem; /* Less header padding */
+            }
+
+            h1 {
+                font-size: 2rem; /* Smaller heading */
+            }
+
+            .main-content {
+                grid-template-columns: 1fr; /* Stack elements */
+                gap: 1rem; /* Smaller gap */
+            }
+
+            .price-list,
+            .cart-box {
+                padding: 1rem; /* Less padding */
+            }
+
+            .subject-item {
+                padding: 0.75rem 0; /* Less vertical padding */
+                flex-direction: column; /* Stack subject info */
+                align-items: flex-start; /* Align left */
+            }
+
+            .subject-item > div {
+                margin: 0.25rem 0; /* Smaller margins for stacked items */
+            }
+
+            .quantity-input {
+                width: 50px; /* Smaller input */
+                padding: 0.3rem; /* Smaller padding */
+                font-size: 0.9rem; /* Smaller font */
+            }
+
+            button {
+                padding: 0.6rem 1rem; /* Smaller button padding */
+                font-size: 0.9rem; /* Smaller font */
+                margin-top: 0.25rem; /* Smaller top margin */
+            }
+
+            .cart-box h2 {
+                font-size: 1.5rem; /* Smaller cart heading */
+            }
+
+            .cart-box p {
+                font-size: 1rem; /* Smaller cart total */
+            }
+
+            #cart-items > div {
+                font-size: 0.9rem; /* Smaller cart items font */
+                margin: 0.25rem 0; /* Smaller margin for cart items */
+            }
+
+            .checkout-page {
+                padding: 1.5rem; /* Less checkout padding */
+            }
+
+            .checkout-page h2 {
+                font-size: 1.8rem; /* Smaller checkout heading */
+            }
+
+            .checkout-page div {
+                font-size: 1.2rem; /* Smaller total amount */
+                margin: 1rem 0; /* Smaller margin */
+            }
+
+            .qr-code {
+                max-width: 200px; /* Smaller QR code */
+                margin: 1rem auto; /* Smaller margin */
+            }
+
+            .checkout-page p {
+                font-size: 0.85rem; /* Smaller text */
             }
         }
 
@@ -280,14 +361,14 @@
                 html += `
                     <div class="subject-item">
                         <div>
-                            <strong>${subject.name}</strong><br>
-                            <small>${subject.code}</small><br>
+                            <strong><span class="math-inline">\{subject\.name\}</strong\><br\>
+<small\></span>{subject.code}</small><br>
                             <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
                         </div>
                         <div>
-                            RM ${FIXED_PRICE}<br>
-                            <input type="number" class="quantity-input"
-                                    id="qty-${subject.code}"
+                            RM <span class="math-inline">\{FIXED\_PRICE\}<br\>
+<input type\="number" class\="quantity\-input"
+id\="qty\-</span>{subject.code}"
                                     min="1" value="1">
                             <button onclick="addToCart('${subject.code}')">
                                 Add to Cart
@@ -329,7 +410,7 @@
                 total += subtotal;
                 html += `
                     <div style="margin: 0.5rem 0;">
-                        ${item.name} (${item.quantity}x)&nbsp;
+                        <span class="math-inline">\{item\.name\} \(</span>{item.quantity}x)&nbsp;
                         <strong>RM ${subtotal.toFixed(2)}</strong>
                     </div>
                 `;
@@ -384,11 +465,3 @@
                 });
             }, 500);
         }
-
-        // Initialize the page
-        createPriceList();
-    </script>
-    <button class="cart-float-btn" onclick="toggleMobileCart()">🛒</button>
-
-</body>
-</html>

@@ -389,75 +389,65 @@
 
         // Create price list
         function createPriceList() {
-    const container = document.getElementById('price-list');
-    let html = '';
-    const maxDifficulty = 5;
-    const barWidth = 80;
+    const container = document.getElementById('price-list');
+    let html = '';
+    const maxDifficulty = 5;
+    const barWidth = 80;
 
-    function renderBar(difficulty) {
-    const maxDifficulty = 5;
-    const percentage = (difficulty / maxDifficulty) * 100;
-    const barWidth = 80;
-    const barWidthPx = barWidth * (difficulty / maxDifficulty);
+    function renderBar(difficulty) {
+    const maxDifficulty = 5;
+    const percentage = (difficulty / maxDifficulty) * 100;
+    const barWidth = 80;
+    const barWidthPx = barWidth * (difficulty / maxDifficulty);
 
-    let backgroundColor = '';
-    if (difficulty === 1) {
-        backgroundColor = 'lightgreen';
-    } else if (difficulty === 2) {
-        const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
-        backgroundColor = `rgb(${greenComponent}, 255, 0)`;
-    } else if (difficulty === 3) {
-        backgroundColor = 'yellow';
-    } else if (difficulty === 4) {
-        const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
-        backgroundColor = `rgb(255, ${greenComponent}, 0)`;
-    } else if (difficulty === 5) {
-        backgroundColor = 'red'; // Explicitly set to red
-    }
+    let backgroundColor = '';
+    if (difficulty === 1) {
+        backgroundColor = 'lightgreen';
+    } else if (difficulty === 2) {
+        const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
+        backgroundColor = `rgb(${greenComponent}, 255, 0)`;
+    } else if (difficulty === 3) {
+        backgroundColor = 'yellow';
+    } else if (difficulty === 4) {
+        const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
+        backgroundColor = `rgb(255, ${greenComponent}, 0)`;
+    } else if (difficulty === 5) {
+        backgroundColor = 'red'; // Explicitly set to red
+    }
 
-    const barStyle = `
-        display: inline-block;
-        background-color: ${backgroundColor};
-        height: 10px;
-        width: ${barWidthPx}px;
-        border-radius: 5px;
-        margin-right: 5px;
-    `;
-    return `<span style="${barStyle}"></span>`;
-}
-    const barStyle = `
-        display: inline-block;
-        background-color: ${backgroundColor};
-        height: 10px;
-        width: ${barWidth * (difficulty / maxDifficulty)}px;
-        border-radius: 5px;
-        margin-right: 5px;
-    `;
-    return `<span style="${barStyle}"></span>`;
+    const barStyle = `
+        display: inline-block;
+        background-color: ${backgroundColor};
+        height: 10px;
+        width: ${barWidthPx}px;
+        border-radius: 5px;
+        margin-right: 5px;
+    `;
+    return `<span style="${barStyle}"></span>`;
 }
 
-    subjects.forEach(subject => {
-        html += `
-            <div class="subject-item">
-                <div>
-                    <strong>${subject.name}</strong><br>
-                    <small>${subject.code}</small><br>
-                    <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
-                </div>
-                <div>
-                    RM ${FIXED_PRICE}<br>
-                    <input type="number" class="quantity-input"
-                           id="qty-${subject.code}"
-                           min="1" value="1">
-                    <button onclick="addToCart('${subject.code}')">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        `;
-    });
+    subjects.forEach(subject => {
+        html += `
+            <div class="subject-item">
+                <div>
+                    <strong>${subject.name}</strong><br>
+                    <small>${subject.code}</small><br>
+                    <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
+                </div>
+                <div>
+                    RM ${FIXED_PRICE}<br>
+                    <input type="number" class="quantity-input"
+                           id="qty-${subject.code}"
+                           min="1" value="1">
+                    <button onclick="addToCart('${subject.code}')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        `;
+    });
 
-    container.innerHTML += html;
+    container.innerHTML += html;
 }
 
         // Cart functions

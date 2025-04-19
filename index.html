@@ -396,17 +396,38 @@
     const barWidth = 80;
 
     function renderBar(difficulty) {
-        const percentage = (difficulty / maxDifficulty) * barWidth;
-        const barStyle = `
-            display: inline-block;
-            background-color: var(--accent);
-            height: 10px;
-            width: ${percentage}px;
-            border-radius: 5px;
-            margin-right: 5px;
-        `;
-        return `<span style="${barStyle}"></span>`;
+    const maxDifficulty = 5;
+    const percentage = (difficulty / maxDifficulty) * 100; // Calculate percentage for color interpolation
+    const barWidth = 80;
+
+    let backgroundColor = '';
+    if (difficulty === 1) {
+        backgroundColor = 'lightgreen';
+    } else if (difficulty === 2) {
+        // Transition from lightgreen to yellow
+        const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20)); // Reduce green
+        backgroundColor = `rgb(${greenComponent}, 255, 0)`;
+    } else if (difficulty === 3) {
+        backgroundColor = 'yellow';
+    } else if (difficulty === 4) {
+        // Transition from yellow to red
+        const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40)); // Reduce green
+        const blueComponent = 0; // Ensure no blue
+        backgroundColor = `rgb(255, ${greenComponent}, ${blueComponent})`;
+    } else if (difficulty === 5) {
+        backgroundColor = 'warning'; // Using the named color 'warning' which browsers usually interpret as yellow or orange-red
     }
+
+    const barStyle = `
+        display: inline-block;
+        background-color: ${backgroundColor};
+        height: 10px;
+        width: ${barWidth * (difficulty / maxDifficulty)}px;
+        border-radius: 5px;
+        margin-right: 5px;
+    `;
+    return `<span style="${barStyle}"></span>`;
+}
 
     subjects.forEach(subject => {
         html += `

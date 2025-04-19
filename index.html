@@ -6,77 +6,77 @@
     <title>Justin's SPM Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
-    .checkout-page {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
+        .checkout-page {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
 
-.checkout-page.show {
-    opacity: 1;
-    visibility: visible;
-}
+        .checkout-page.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
-.main-content {
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
+        .main-content {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
 
-.main-content.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
+        .main-content.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
 
 
         /* Floating Cart Button for Mobile */
-.cart-float-btn {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
+        .cart-float-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
 
-/* Slide Up Cart Panel */
-.cart-box.mobile-slide {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    transition: bottom 0.4s ease-in-out;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-}
+        /* Slide Up Cart Panel */
+        .cart-box.mobile-slide {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            transition: bottom 0.4s ease-in-out;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+        }
 
-/* When Active */
-.cart-box.mobile-slide.active {
-    bottom: 0;
-}
+        /* When Active */
+        .cart-box.mobile-slide.active {
+            bottom: 0;
+        }
 
-/* Show floating button only on small screens */
-@media (max-width: 768px) {
-    .cart-float-btn {
-        display: block;
-    }
+        /* Show floating button only on small screens */
+        @media (max-width: 768px) {
+            .cart-float-btn {
+                display: block;
+            }
 
-    .cart-box.desktop {
-        display: none;
-    }
+            .cart-box.desktop {
+                display: none;
+            }
 
-    .cart-box.mobile-slide {
-        display: block;
-    }
-}
+            .cart-box.mobile-slide {
+                display: block;
+            }
+        }
 
         :root {
             --primary: #3D52A0;
@@ -190,13 +190,10 @@
         </div>
 
         <div class="main-content">
-            <!-- Price List Section -->
             <div class="price-list" id="price-list">
                 <h2>Available Subjects</h2>
-                <!-- Subjects will be populated by JS -->
-            </div>
+                </div>
 
-            <!-- Shopping Cart Section -->
             <div class="cart-box">
                 <h2>Your Cart 🛒</h2>
                 <div id="cart-items" style="margin: 1rem 0;"></div>
@@ -206,7 +203,6 @@
             </div>
         </div>
 
-        <!-- Checkout Page -->
         <div class="checkout-page" id="checkout-page">
             <h2>Payment Confirmation</h2>
             <div style="font-size: 2rem; margin: 2rem 0;">
@@ -217,238 +213,92 @@
             <button onclick="returnToSubjects()">Return to Subjects</button>
         </div>
     </div>
-<!-- Inside <style> tag -->
-<style>
-    :root {
-        --primary: #3D52A0;
-        --secondary: #7091E6;
-        --accent: #8697C4;
-        --light: #ADBBDA;
-        --background: #EDE8F5;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif;
-        min-height: 100vh;
-        margin: 0;
-        background: linear-gradient(45deg, var(--primary), var(--secondary), var(--light));
-        color: #2c3e50;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1.5rem;
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 2rem;
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-    }
-
-    h1 {
-        font-family: 'Poppins', sans-serif;
-        color: var(--primary);
-        font-size: 2.2rem;
-        margin: 0;
-    }
-
-    .main-content {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 1.5rem;
-    }
-
-    .price-list,
-    .cart-box {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        padding: 1.5rem;
-    }
-
-    .subject-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid var(--light);
-        flex-wrap: wrap;
-    }
-
-    .subject-item > div {
-        margin: 0.5rem 0;
-    }
-
-    .checkout-page {
-        display: none;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-    }
-
-    .qr-code {
-        width: 100%;
-        max-width: 300px;
-        margin: 2rem auto;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    button {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
-        border: none;
-        padding: 0.8rem 1.2rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-    }
-
-    button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(61,82,160,0.3);
-        background: linear-gradient(135deg, var(--secondary), var(--primary));
-    }
-
-    .quantity-input {
-        width: 60px;
-        padding: 0.4rem;
-        border: 2px solid var(--light);
-        border-radius: 6px;
-        font-size: 1rem;
-    }
-
-    /* Mobile Responsive Tweaks */
-    @media (max-width: 768px) {
-        .main-content {
-            grid-template-columns: 1fr;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-        }
-
-        .subject-item {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        button {
-            width: 100%;
-            text-align: center;
-        }
-
-        .quantity-input {
-            width: 100%;
-            margin: 0.5rem 0;
-        }
-
-        .cart-box {
-            margin-top: 1rem;
-        }
-
-        .header p {
-            font-size: 0.95rem;
-        }
-
-        .checkout-page {
-            padding: 1.5rem;
-        }
-    }
-</style>
 
     <script>
         function toggleMobileCart() {
-    const cartBox = document.querySelector('.cart-box');
-    if (cartBox) {
-        cartBox.scrollIntoView({ behavior: 'smooth' });
-    }
-}
+            const cartBox = document.querySelector('.cart-box');
+            if (cartBox) {
+                cartBox.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
         const subjects = [
-    { name: "Bahasa Malaysia (BM)", code: "BM", difficultyText: "abit hard", difficultyValue: 4 },
-    { name: "Bahasa Inggeris (BI)", code: "BI", difficultyText: "close both eyes also can do", difficultyValue: 1 },
-    { name: "Bahasa Cina (BC)", code: "BC", difficultyText: "abit hard", difficultyValue: 4 },
-    { name: "Mathematics", code: "MATH", difficultyText: "normal", difficultyValue: 3 },
-    { name: "Additional Mathematics", code: "ADDMATH", difficultyText: "memang jibai", difficultyValue: 5 },
-    { name: "Sejarah", code: "SEJ", difficultyText: "normal", difficultyValue: 3 },
-    { name: "Physics", code: "PHY", difficultyText: "normal", difficultyValue: 3 },
-    { name: "Biology", code: "BIO", difficultyText: "memang jibai", difficultyValue: 5 },
-    { name: "Chemistry", code: "CHEM", difficultyText: "normal", difficultyValue: 3 },
-    { name: "Moral", code: "MORAL", difficultyText: "normal", difficultyValue: 3 }
-];
+            { name: "Bahasa Malaysia (BM)", code: "BM", difficultyText: "abit hard", difficultyValue: 4 },
+            { name: "Bahasa Inggeris (BI)", code: "BI", difficultyText: "close both eyes also can do", difficultyValue: 1 },
+            { name: "Bahasa Cina (BC)", code: "BC", difficultyText: "abit hard", difficultyValue: 4 },
+            { name: "Mathematics", code: "MATH", difficultyText: "normal", difficultyValue: 3 },
+            { name: "Additional Mathematics", code: "ADDMATH", difficultyText: "memang jibai", difficultyValue: 5 },
+            { name: "Sejarah", code: "SEJ", difficultyText: "normal", difficultyValue: 3 },
+            { name: "Physics", code: "PHY", difficultyText: "normal", difficultyValue: 3 },
+            { name: "Biology", code: "BIO", difficultyText: "memang jibai", difficultyValue: 5 },
+            { name: "Chemistry", code: "CHEM", difficultyText: "normal", difficultyValue: 3 },
+            { name: "Moral", code: "MORAL", difficultyText: "normal", difficultyValue: 3 }
+        ];
         let cart = [];
         const FIXED_PRICE = 49.99;
 
         // Create price list
         function createPriceList() {
-    const container = document.getElementById('price-list');
-    let html = '';
-    const maxDifficulty = 5;
-    const barWidth = 80;
+            const container = document.getElementById('price-list');
+            let html = '';
+            const maxDifficulty = 5;
+            const barWidth = 80;
 
-    function renderBar(difficulty) {
-    const maxDifficulty = 5;
-    const percentage = (difficulty / maxDifficulty) * 100;
-    const barWidth = 80;
-    const barWidthPx = barWidth * (difficulty / maxDifficulty);
+            function renderBar(difficulty) {
+                const maxDifficulty = 5;
+                const percentage = (difficulty / maxDifficulty) * 100;
+                const barWidth = 80;
+                const barWidthPx = barWidth * (difficulty / maxDifficulty);
 
-    let backgroundColor = '';
-    if (difficulty === 1) {
-        backgroundColor = 'lightgreen';
-    } else if (difficulty === 2) {
-        const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
-        backgroundColor = `rgb(${greenComponent}, 255, 0)`;
-    } else if (difficulty === 3) {
-        backgroundColor = 'yellow';
-    } else if (difficulty === 4) {
-        const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
-        backgroundColor = `rgb(255, ${greenComponent}, 0)`;
-    } else if (difficulty === 5) {
-        backgroundColor = 'red'; // Explicitly set to red
-    }
+                let backgroundColor = '';
+                if (difficulty === 1) {
+                    backgroundColor = 'lightgreen';
+                } else if (difficulty === 2) {
+                    const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
+                    backgroundColor = `rgb(${greenComponent}, 255, 0)`;
+                } else if (difficulty === 3) {
+                    backgroundColor = 'yellow';
+                } else if (difficulty === 4) {
+                    const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
+                    backgroundColor = `rgb(255, ${greenComponent}, 0)`;
+                } else if (difficulty === 5) {
+                    backgroundColor = 'red'; // Explicitly set to red
+                }
 
-    const barStyle = `
-        display: inline-block;
-        background-color: ${backgroundColor};
-        height: 10px;
-        width: ${barWidthPx}px;
-        border-radius: 5px;
-        margin-right: 5px;
-    `;
-    return `<span style="${barStyle}"></span>`;
-}
+                const barStyle = `
+                    display: inline-block;
+                    background-color: ${backgroundColor};
+                    height: 10px;
+                    width: ${barWidthPx}px;
+                    border-radius: 5px;
+                    margin-right: 5px;
+                `;
+                return `<span style="${barStyle}"></span>`;
+            }
 
-    subjects.forEach(subject => {
-        html += `
-            <div class="subject-item">
-                <div>
-                    <strong>${subject.name}</strong><br>
-                    <small>${subject.code}</small><br>
-                    <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
-                </div>
-                <div>
-                    RM ${FIXED_PRICE}<br>
-                    <input type="number" class="quantity-input"
-                           id="qty-${subject.code}"
-                           min="1" value="1">
-                    <button onclick="addToCart('${subject.code}')">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        `;
-    });
+            subjects.forEach(subject => {
+                html += `
+                    <div class="subject-item">
+                        <div>
+                            <strong>${subject.name}</strong><br>
+                            <small>${subject.code}</small><br>
+                            <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
+                        </div>
+                        <div>
+                            RM ${FIXED_PRICE}<br>
+                            <input type="number" class="quantity-input"
+                                    id="qty-${subject.code}"
+                                    min="1" value="1">
+                            <button onclick="addToCart('${subject.code}')">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
 
-    container.innerHTML += html;
-}
+            container.innerHTML += html;
+        }
 
         // Cart functions
         function addToCart(code) {
@@ -479,7 +329,7 @@
                 total += subtotal;
                 html += `
                     <div style="margin: 0.5rem 0;">
-                        ${item.name} (${item.quantity}x) 
+                        ${item.name} (${item.quantity}x)&nbsp;
                         <strong>RM ${subtotal.toFixed(2)}</strong>
                     </div>
                 `;
@@ -489,58 +339,56 @@
             document.getElementById('total-amount').textContent = total.toFixed(2);
         }
 
-function showCheckout() {
-    if (cart.length === 0) {
-        alert('Please add subjects to your cart first!');
-        return;
-    }
+        function showCheckout() {
+            if (cart.length === 0) {
+                alert('Please add subjects to your cart first!');
+                return;
+            }
 
-    const mainContent = document.querySelector('.main-content');
-    const checkoutPage = document.getElementById('checkout-page');
+            const mainContent = document.querySelector('.main-content');
+            const checkoutPage = document.getElementById('checkout-page');
 
-    // Fade out the subject list
-    mainContent.classList.add('fade-out');
+            // Fade out the subject list
+            mainContent.classList.add('fade-out');
 
-    // Wait for the fade-out to finish before switching views
-    setTimeout(() => {
-        mainContent.style.display = 'none';
-        checkoutPage.style.display = 'block';
+            // Wait for the fade-out to finish before switching views
+            setTimeout(() => {
+                mainContent.style.display = 'none';
+                checkoutPage.style.display = 'block';
 
-        // Add fade-in transition for checkout page
-        requestAnimationFrame(() => {
-            checkoutPage.classList.add('show');
-        });
+                // Add fade-in transition for checkout page
+                requestAnimationFrame(() => {
+                    checkoutPage.classList.add('show');
+                });
 
-        // Set total in checkout
-        document.getElementById('checkout-total').textContent = 
-            document.getElementById('total-amount').textContent;
-    }, 500); // 500ms matches the CSS transition
-}
+                // Set total in checkout
+                document.getElementById('checkout-total').textContent =
+                    document.getElementById('total-amount').textContent;
+            }, 500); // 500ms matches the CSS transition
+        }
 
         function returnToSubjects() {
-    const mainContent = document.querySelector('.main-content');
-    const checkoutPage = document.getElementById('checkout-page');
+            const mainContent = document.querySelector('.main-content');
+            const checkoutPage = document.getElementById('checkout-page');
 
-    // Fade out checkout page
-    checkoutPage.classList.remove('show');
+            // Fade out checkout page
+            checkoutPage.classList.remove('show');
 
-    // After fade out, bring back main content
-    setTimeout(() => {
-        checkoutPage.style.display = 'none';
-        mainContent.style.display = 'grid';
-        requestAnimationFrame(() => {
-            mainContent.classList.remove('fade-out');
-            mainContent.classList.add('show');
-        });
-    }, 500);
-}
-
+            // After fade out, bring back main content
+            setTimeout(() => {
+                checkoutPage.style.display = 'none';
+                mainContent.style.display = 'grid';
+                requestAnimationFrame(() => {
+                    mainContent.classList.remove('fade-out');
+                    mainContent.classList.add('show');
+                });
+            }, 500);
+        }
 
         // Initialize the page
         createPriceList();
     </script>
-    <!-- Floating Cart Button -->
-<button class="cart-float-btn" onclick="toggleMobileCart()">🛒</button>
+    <button class="cart-float-btn" onclick="toggleMobileCart()">🛒</button>
 
 </body>
 </html>

@@ -65,6 +65,34 @@
 
         /* Show floating button only on small screens */
         @media (max-width: 768px) {
+            body {
+        overflow-x: hidden; /* Prevent horizontal scroll on the body */
+    }
+
+    .container {
+        padding: 1rem;
+        max-width: 100%; /* Ensure it takes full width */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .price-list,
+    .cart-box,
+    .checkout-page {
+        box-sizing: border-box; /* Ensure padding doesn't add to the width */
+        width: 100%; /* Make them take full width */
+    }
+
+    .subject-item {
+        flex-direction: column;
+        align-items: flex-start;
+        box-sizing: border-box; /* Important for padding */
+        width: 100%; /* Ensure full width */
+    }
+
+    .qr-code {
+        max-width: 90%; /* Ensure QR code doesn't overflow */
+        height: auto;
+    }
             .cart-float-btn {
                 display: block;
             }

@@ -295,177 +295,177 @@
     </div>
 
     <script>
-        function toggleMobileCart() {
-            const cartBox = document.querySelector('.cart-box');
-            if (cartBox) {
-                cartBox.scrollIntoView({ behavior: 'smooth' });
-            }
+    function toggleMobileCart() {
+        const cartBox = document.querySelector('.cart-box');
+        if (cartBox) {
+            cartBox.scrollIntoView({ behavior: 'smooth' });
         }
+    }
 
-        const subjects = [
-            { name: "Bahasa Malaysia (BM)", code: "BM", difficultyText: "abit hard", difficultyValue: 4 },
-            { name: "Bahasa Inggeris (BI)", code: "BI", difficultyText: "close both eyes also can do", difficultyValue: 1 },
-            { name: "Bahasa Cina (BC)", code: "BC", difficultyText: "abit hard", difficultyValue: 4 },
-            { name: "Mathematics", code: "MATH", difficultyText: "normal", difficultyValue: 3 },
-            { name: "Additional Mathematics", code: "ADDMATH", difficultyText: "memang jibai", difficultyValue: 5 },
-            { name: "Sejarah", code: "SEJ", difficultyText: "normal", difficultyValue: 3 },
-            { name: "Physics", code: "PHY", difficultyText: "normal", difficultyValue: 3 },
-            { name: "Biology", code: "BIO", difficultyText: "memang jibai", difficultyValue: 5 },
-            { name: "Chemistry", code: "CHEM", difficultyText: "normal", difficultyValue: 3 },
-            { name: "Moral", code: "MORAL", difficultyText: "normal", difficultyValue: 3 }
-        ];
-        let cart = [];
-        const FIXED_PRICE = 49.99;
+    const subjects = [
+        { name: "Bahasa Malaysia (BM)", code: "BM", difficultyText: "abit hard", difficultyValue: 4 },
+        { name: "Bahasa Inggeris (BI)", code: "BI", difficultyText: "close both eyes also can do", difficultyValue: 1 },
+        { name: "Bahasa Cina (BC)", code: "BC", difficultyText: "abit hard", difficultyValue: 4 },
+        { name: "Mathematics", code: "MATH", difficultyText: "normal", difficultyValue: 3 },
+        { name: "Additional Mathematics", code: "ADDMATH", difficultyText: "memang jibai", difficultyValue: 5 },
+        { name: "Sejarah", code: "SEJ", difficultyText: "normal", difficultyValue: 3 },
+        { name: "Physics", code: "PHY", difficultyText: "normal", difficultyValue: 3 },
+        { name: "Biology", code: "BIO", difficultyText: "memang jibai", difficultyValue: 5 },
+        { name: "Chemistry", code: "CHEM", difficultyText: "normal", difficultyValue: 3 },
+        { name: "Moral", code: "MORAL", difficultyText: "normal", difficultyValue: 3 }
+    ];
+    let cart = [];
+    const FIXED_PRICE = 49.99;
 
-        // Create price list
-        function createPriceList() {
-            const container = document.getElementById('price-list');
-            let html = '';
+    // Create price list
+    function createPriceList() {
+        const container = document.getElementById('price-list');
+        let html = '';
+        const maxDifficulty = 5;
+        const barWidth = 80;
+
+        function renderBar(difficulty) {
             const maxDifficulty = 5;
+            const percentage = (difficulty / maxDifficulty) * 100;
             const barWidth = 80;
+            const barWidthPx = barWidth * (difficulty / maxDifficulty);
 
-            function renderBar(difficulty) {
-                const maxDifficulty = 5;
-                const percentage = (difficulty / maxDifficulty) * 100;
-                const barWidth = 80;
-                const barWidthPx = barWidth * (difficulty / maxDifficulty);
-
-                let backgroundColor = '';
-                if (difficulty === 1) {
-                    backgroundColor = 'lightgreen';
-                } else if (difficulty === 2) {
-                    const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
-                    backgroundColor = `rgb(${greenComponent}, 255, 0)`;
-                } else if (difficulty === 3) {
-                    backgroundColor = 'yellow';
-                } else if (difficulty === 4) {
-                    const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
-                    backgroundColor = `rgb(255, ${greenComponent}, 0)`;
-                } else if (difficulty === 5) {
-                    backgroundColor = 'red'; // Explicitly set to red
-                }
-
-                const barStyle = `
-                    display: inline-block;
-                    background-color: ${backgroundColor};
-                    height: 10px;
-                    width: ${barWidthPx}px;
-                    border-radius: 5px;
-                    margin-right: 5px;
-                `;
-                return `<span style="${barStyle}"></span>`;
+            let backgroundColor = '';
+            if (difficulty === 1) {
+                backgroundColor = 'lightgreen';
+            } else if (difficulty === 2) {
+                const greenComponent = 255 - Math.round((percentage - 20) * (255 / 20));
+                backgroundColor = `rgb(${greenComponent}, 255, 0)`;
+            } else if (difficulty === 3) {
+                backgroundColor = 'yellow';
+            } else if (difficulty === 4) {
+                const greenComponent = 255 - Math.round((percentage - 60) * (255 / 40));
+                backgroundColor = `rgb(255, ${greenComponent}, 0)`;
+            } else if (difficulty === 5) {
+                backgroundColor = 'red'; // Explicitly set to red
             }
 
-            subjects.forEach(subject => {
-                html += `
-                    <div class="subject-item">
-                        <div>
-                            <strong><span class="math-inline">\{subject\.name\}</strong\><br\>
-<small\></span>{subject.code}</small><br>
-                            <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
-                        </div>
-                        <div>
-                            RM <span class="math-inline">\{FIXED\_PRICE\}<br\>
-<input type\="number" class\="quantity\-input"
-id\="qty\-</span>{subject.code}"
-                                    min="1" value="1">
-                            <button onclick="addToCart('${subject.code}')">
-                                Add to Cart
-                            </button>
-                        </div>
+            const barStyle = `
+                display: inline-block;
+                background-color: ${backgroundColor};
+                height: 10px;
+                width: ${barWidthPx}px;
+                border-radius: 5px;
+                margin-right: 5px;
+            `;
+            return `<span style="${barStyle}"></span>`;
+        }
+
+        subjects.forEach(subject => {
+            html += `
+                <div class="subject-item">
+                    <div>
+                        <strong>${subject.name}</strong><br>
+                        <small>${subject.code}</small><br>
+                        <small style="color: var(--accent);">Difficulty: ${subject.difficultyText} <br> ${renderBar(subject.difficultyValue)}</small>
                     </div>
-                `;
+                    <div>
+                        RM ${FIXED_PRICE}<br>
+                        <input type="number" class="quantity-input"
+                                id="qty-${subject.code}"
+                                min="1" value="1">
+                        <button onclick="addToCart('${subject.code}')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML += html;
+    }
+
+    // Cart functions
+    function addToCart(code) {
+        const quantity = parseInt(document.getElementById(`qty-${code}`).value);
+        const existing = cart.find(item => item.code === code);
+
+        if (existing) {
+            existing.quantity += quantity;
+        } else {
+            cart.push({
+                code: code,
+                name: subjects.find(s => s.code === code).name,
+                price: FIXED_PRICE,
+                quantity: quantity
+            });
+        }
+
+        updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+        const cartContainer = document.getElementById('cart-items');
+        let html = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+            html += `
+                <div style="margin: 0.5rem 0;">
+                    ${item.name} (${item.quantity}x)&nbsp;
+                    <strong>RM ${subtotal.toFixed(2)}</strong>
+                </div>
+            `;
+        });
+
+        cartContainer.innerHTML = html;
+        document.getElementById('total-amount').textContent = total.toFixed(2);
+    }
+
+    function showCheckout() {
+        if (cart.length === 0) {
+            alert('Please add subjects to your cart first!');
+            return;
+        }
+
+        const mainContent = document.querySelector('.main-content');
+        const checkoutPage = document.getElementById('checkout-page');
+
+        // Fade out the subject list
+        mainContent.classList.add('fade-out');
+
+        // Wait for the fade-out to finish before switching views
+        setTimeout(() => {
+            mainContent.style.display = 'none';
+            checkoutPage.style.display = 'block';
+
+            // Add fade-in transition for checkout page
+            requestAnimationFrame(() => {
+                checkoutPage.classList.add('show');
             });
 
-            container.innerHTML += html;
-        }
+            // Set total in checkout
+            document.getElementById('checkout-total').textContent =
+                document.getElementById('total-amount').textContent;
+        }, 500); // 500ms matches the CSS transition
+    }
 
-        // Cart functions
-        function addToCart(code) {
-            const quantity = parseInt(document.getElementById(`qty-${code}`).value);
-            const existing = cart.find(item => item.code === code);
+    function returnToSubjects() {
+        const mainContent = document.querySelector('.main-content');
+        const checkoutPage = document.getElementById('checkout-page');
 
-            if (existing) {
-                existing.quantity += quantity;
-            } else {
-                cart.push({
-                    code: code,
-                    name: subjects.find(s => s.code === code).name,
-                    price: FIXED_PRICE,
-                    quantity: quantity
-                });
-            }
+        // Fade out checkout page
+        checkoutPage.classList.remove('show');
 
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            const cartContainer = document.getElementById('cart-items');
-            let html = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
-                html += `
-                    <div style="margin: 0.5rem 0;">
-                        <span class="math-inline">\{item\.name\} \(</span>{item.quantity}x)&nbsp;
-                        <strong>RM ${subtotal.toFixed(2)}</strong>
-                    </div>
-                `;
+        // After fade out, bring back main content
+        setTimeout(() => {
+            checkoutPage.style.display = 'none';
+            mainContent.style.display = 'grid';
+            requestAnimationFrame(() => {
+                mainContent.classList.remove('fade-out');
+                mainContent.classList.add('show');
             });
+        }, 500);
+    }
 
-            cartContainer.innerHTML = html;
-            document.getElementById('total-amount').textContent = total.toFixed(2);
-        }
-
-        function showCheckout() {
-            if (cart.length === 0) {
-                alert('Please add subjects to your cart first!');
-                return;
-            }
-
-            const mainContent = document.querySelector('.main-content');
-            const checkoutPage = document.getElementById('checkout-page');
-
-            // Fade out the subject list
-            mainContent.classList.add('fade-out');
-
-            // Wait for the fade-out to finish before switching views
-            setTimeout(() => {
-                mainContent.style.display = 'none';
-                checkoutPage.style.display = 'block';
-
-                // Add fade-in transition for checkout page
-                requestAnimationFrame(() => {
-                    checkoutPage.classList.add('show');
-                });
-
-                // Set total in checkout
-                document.getElementById('checkout-total').textContent =
-                    document.getElementById('total-amount').textContent;
-            }, 500); // 500ms matches the CSS transition
-        }
-
-        function returnToSubjects() {
-            const mainContent = document.querySelector('.main-content');
-            const checkoutPage = document.getElementById('checkout-page');
-
-            // Fade out checkout page
-            checkoutPage.classList.remove('show');
-
-            // After fade out, bring back main content
-            setTimeout(() => {
-                checkoutPage.style.display = 'none';
-                mainContent.style.display = 'grid';
-                requestAnimationFrame(() => {
-                    mainContent.classList.remove('fade-out');
-                    mainContent.classList.add('show');
-                });
-            }, 500);
-        }
-
-        // Initialize the page
-        createPriceList();
-    </script>
+    // Initialize the page
+    createPriceList();
+</script>
     <button class="cart-float-
